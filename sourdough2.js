@@ -1,7 +1,7 @@
 
 function calculate(options){
 
-    flourAndWaterWeight = calculateFlourAndWater(options.requiredTotalDough, options.totalHydration, options.splitWater);
+    let flourAndWaterWeight = calculateFlourAndWater(options.requiredTotalDough, options.totalHydration, options.splitWater);
     let levainWeight = calculateLevainWeight(flourAndWaterWeight.flour, options.levainPercentage);
     let flourWithoutLevain = flourAndWaterWeight.flour - levainWeight / 2;
     let waterWithoutLevain = flourAndWaterWeight.water - levainWeight / 2;
