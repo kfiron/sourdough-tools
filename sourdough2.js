@@ -1,17 +1,41 @@
+function flourByLevainType(lType){
+    switch(lType){
+        case 'stiff':
+            return 2 / 3;
+        break;
+        case 'normal':
+            return 1 / 2;
+        break;
+    }
+}
+
+
+function waterByLevainType(lType){
+    switch(lType){
+        case 'stiff':
+            return 1 / 3;
+        break;
+        case 'normal':
+            return 1 / 2;
+        break;
+    }
+}
 
 function calculate(options){
 
     let flourAndWaterWeight = calculateFlourAndWater(options.requiredTotalDough, options.totalHydration, options.splitWater);
     let levainWeight = calculateLevainWeight(flourAndWaterWeight.flour, options.levainPercentage);
-    let flourWithoutLevain = flourAndWaterWeight.flour - levainWeight / 2;
-    let waterWithoutLevain = flourAndWaterWeight.water - levainWeight / 2;
+    let flourWithoutLevain = Math.round(flourAndWaterWeight.flour - levainWeight * flourByLevainType(options.levainHydration));
+    let waterWithoutLevain = Math.round(flourAndWaterWeight.water - levainWeight * waterByLevainType(options.levainHydration));
     
     let water;
 
     if(options.splitWater){
       let water1 = waterWithoutLevain * ((100-options.splitWater) / 100)
       let water2 = waterWithoutLevain - water1;
-      water = { water1: Math.round(water1), water2: Math.round(water2)}
+      water = { water1: Math.round(water1), 
+                water2: Math.round(water2),
+                splitBy: options.splitWater.toString() + '%'}
     } else {
         water = { water: waterWithoutLevain}
     }
@@ -37,6 +61,7 @@ function calculate(options){
         levain: {
             weight: levainWeight,
             percentage: options.levainPercentage,
+            levainHydration: options.levainHydration
         },        
         flours: flours,
         salt: {
@@ -51,16 +76,17 @@ function calculate(options){
 }
 
 const res = calculate({
-    recipeName: 'Hybrid Neopolitan Pizza',
-    requiredTotalDough: 1700,
+    recipeName: 'pizza stiff sourdough',
+    requiredTotalDough: 800,
     floursPercentage: [
-        {type: 'Caputo Tipo 00', percentage: 100}        
+        {type: 'nuvola', percentage: 100}       
         ],
-    levainPercentage: 10,
+    levainPercentage: 20,
+    levainHydration: 'stiff', /* stiff / normal */
     totalHydration: 70,
-    saltPercentage: 2.5,
-    splitWater: 4,
-    yeast: 0.1
+    saltPercentage: 2,
+    splitWater: false ,
+    //yeast: false
 })
 
 console.log (res);
@@ -88,4 +114,27 @@ function calculateLevainWeight(totalFlourWeight, levainPercentage){
             return i * 2;        
         }
     }    
+}
+
+function flourByLevainType(lType){
+    switch(lType){
+        case 'stiff':
+            return 2 / 3;
+        break;
+        case 'normal':
+            return 1 / 2;
+        break;
+    }
+}
+
+
+function waterByLevainType(lType){
+    switch(lType){
+        case 'stiff':
+            return 1 / 3;
+        break;
+        case 'normal':
+            return 1 / 2;
+        break;
+    }
 }
