@@ -1,25 +1,3 @@
-function flourByLevainType(lType){
-    switch(lType){
-        case 'stiff':
-            return 2 / 3;
-        break;
-        case 'normal':
-            return 1 / 2;
-        break;
-    }
-}
-
-
-function waterByLevainType(lType){
-    switch(lType){
-        case 'stiff':
-            return 1 / 3;
-        break;
-        case 'normal':
-            return 1 / 2;
-        break;
-    }
-}
 
 function calculate(options){
 
