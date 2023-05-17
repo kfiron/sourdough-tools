@@ -18,11 +18,6 @@ function calculate(options){
         water = { water: waterWithoutLevain}
     }
 
-    let yeast;
-
-    if(options.yeast){
-        yeast = flourAndWaterWeight.flour * (options.yeast / 100)        
-    }
 
     const flours = options.floursPercentage.map(flour => {
         return {
@@ -46,25 +41,23 @@ function calculate(options){
             weight: flourWithoutLevain * options.saltPercentage / 100,
             percentage: options.saltPercentage
         },
-        water: water, 
-        yeast: yeast
+        water: water        
     }
 
     return result;
 }
 
 const res = calculate({
-    recipeName: 'pizza stiff sourdough',
-    requiredTotalDough: 800,
+    recipeName: 'classic neopolitan',
+    requiredTotalDough: 850,
     floursPercentage: [
-        {type: 'nuvola', percentage: 100}       
+        {type: 'Caputo Pizzeria', percentage: 100}
         ],
-    levainPercentage: 20,
-    levainHydration: 'stiff', /* stiff / normal */
-    totalHydration: 70,
-    saltPercentage: 2,
-    splitWater: false ,
-    //yeast: false
+    levainPercentage: 0,
+    levainHydration: 'normal', /* stiff / normal / in-between (75%) */ 
+    totalHydration: 62,
+    saltPercentage: 2.5,
+    splitWater: false
 })
 
 console.log (res);
@@ -102,9 +95,11 @@ function flourByLevainType(lType){
         case 'normal':
             return 1 / 2;
         break;
+        case 'in-between':
+            return 0.571;
+        break;
     }
 }
-
 
 function waterByLevainType(lType){
     switch(lType){
@@ -113,6 +108,9 @@ function waterByLevainType(lType){
         break;
         case 'normal':
             return 1 / 2;
+        break;
+        case 'in-between':
+            return 0.428;
         break;
     }
 }
