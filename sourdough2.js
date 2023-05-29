@@ -48,16 +48,17 @@ function calculate(options){
 }
 
 const res = calculate({
-    recipeName: 'classic neopolitan',
-    requiredTotalDough: 850,
+    recipeName: 'sourdough pizza',
+    requiredTotalDough: 2500,
     floursPercentage: [
-        {type: 'Caputo Pizzeria', percentage: 100}
+        {type: 'Caputo Pizzeria', percentage: 60},
+        {type: 'Caputo Nuvola', percentage: 40}        
         ],
-    levainPercentage: 0,
+    levainPercentage: 15,
     levainHydration: 'normal', /* stiff / normal / in-between (75%) */ 
-    totalHydration: 62,
-    saltPercentage: 2.5,
-    splitWater: false
+    totalHydration: 63,
+    saltPercentage: 2,
+    splitWater: 2
 })
 
 console.log (res);
